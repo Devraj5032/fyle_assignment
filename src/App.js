@@ -1,12 +1,10 @@
-import './App.css';
-import Section from './components/Section';
-import SideBar from './components/SideBar';
+import "./App.css";
+import Section from "./components/Section";
 
 function App() {
   return (
-    <div >
-      {/* <Section /> */}
-      <SideBar />
+    <div>
+      <Section />
     </div>
   );
 }
