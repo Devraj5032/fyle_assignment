@@ -1,11 +1,65 @@
+import { useState } from "react";
 import "./App.css";
-import Section from "./components/Section";
+import Cards from "./components/Cards";
+import NavBar from "./components/NavBar";
+import SideBar from "./components/SideBar";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
+  const [sideBar, setSideBar] = useState(false);
+
+  const onBarClick = () => {
+    setSideBar(true);
+  };
+
+  const onCrossClick = () => {
+    setSideBar(false);
+  };
+
+  const onSubjectClick = () => {
+    setSideBar(false);
+  };
   return (
-    <div>
-      <Section />
-    </div>
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div>
+              {sideBar && <SideBar onCrossClick={onCrossClick} onSubjectClick={onSubjectClick}/>}
+              {!sideBar && (
+                <div>
+                  <NavBar
+                    onBarClick={onBarClick}
+                    onCrossClick={onCrossClick}
+                    sideBar={sideBar}
+                  />
+                  <Cards />
+                </div>
+              )}
+            </div>
+          }
+        />
+        <Route
+          path="/:subject"
+          element={
+            <div>
+              {sideBar && <SideBar onCrossClick={onCrossClick} onSubjectClick={onSubjectClick}/>}
+              {!sideBar && (
+                <div>
+                  <NavBar
+                    onBarClick={onBarClick}
+                    onCrossClick={onCrossClick}
+                    sideBar={sideBar}
+                  />
+                  <Cards />
+                </div>
+              )}
+            </div>
+          }
+        />
+      </Routes>
+    </Router>
   );
 }
 

@@ -3,14 +3,16 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import SubjectCard from "./SubjectCard";
 
 const subjects = [
-  "Architecture",
-  "Autobiographies",
-  "Programming",
-  "Physics",
-  "India",
+  "architecture",
+  "autobiographies",
+  "programming",
+  "physics",
+  "india",
 ];
 
-const SideBar = ({ onCrossClick }) => {
+const SideBar = ({ onCrossClick , onSubjectClick}) => {
+
+
   return (
     <div className="flex flex-col min-h-screen bg-slate-700  items-center justify-center space-y-5 relative">
       <XMarkIcon
@@ -28,7 +30,7 @@ const SideBar = ({ onCrossClick }) => {
         </button>
       </div>
       {subjects.map((sub) => (
-        <SubjectCard subject={sub} />
+        <SubjectCard subject={sub} onSubjectClick={onSubjectClick}/>
       ))}
     </div>
   );
