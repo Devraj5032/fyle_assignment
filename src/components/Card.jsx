@@ -9,7 +9,6 @@ const Card = ({ title, author, latestPub, firstPub }) => {
       <strong>Author: {author}</strong>
       <p>Latest publish year: {latestPub}</p>
       <p>First publish yesr: {firstPub}</p>
-      <button className="bg-cyan-400 p-2 rounded-lg">Read More</button>
     </div>
   );
 };

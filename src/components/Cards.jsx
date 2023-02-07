@@ -1,24 +1,40 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import loadingGIF from "../Images/loadingGIF.gif";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 const Cards = () => {
-  let {subject} = useParams()
+  let { subject } = useParams();
+  let { book } = useParams();
   const [loading, setLoading] = useState(true);
   const [books, setBooks] = useState([]);
-  const [sub , setSub] = useState(subject)
+  const [sub, setSub] = useState(subject);
+  const [searchBar, setSearchBar] = useState(book);
 
+  const location = useLocation()
 
   const datafun = async () => {
-    setLoading(true);
-    const data = await fetch(
-      `https://openlibrary.org/subjects/${sub}.json?details=true`
-    );
-    let data1 = await data.json();
-    const data2 = data1.works;
-    setBooks(data2);
-    setLoading(false);
+    if (location.pathname.includes("search")) {
+      setLoading(true);
+      const data = await fetch(
+        `https://openlibrary.org/search.json?q=${searchBar.split(' ').join('+')}`
+      );
+      let data1 = await data.json();
+      console.log(data1.docs)
+      const data2 = data1.docs;
+      setBooks(data2);
+      setLoading(false);
+      
+    } else {
+      setLoading(true);
+      const data = await fetch(
+        `https://openlibrary.org/subjects/${sub}.json?details=true`
+      );
+      let data1 = await data.json();
+      const data2 = data1.works;
+      setBooks(data2);
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -32,13 +48,14 @@ const Cards = () => {
           <img src={loadingGIF} alt="loading..." className="w-7" />
         </div>
       )}
-      {!loading &&  (
+      {!loading && (
         <div className="bg-red-300 min-h-[76vh] pt-20 justify-center px-4 flex flex-wrap py-4 ">
           {books.map((book) => (
             <Card
               key={book.key}
               title={book.title}
-              author={book.authors.map((author) => author.name + ",")}
+              // author={location.pathname.includes("search") ===true ? book.author_name.map((author) => author.name + ",") : book.authors.map((author) => author.name + ",")}
+              // author= {book.author_name.map(author => author)}
               firstPub={book.first_publish_year}
             />
           ))}
