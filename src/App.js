@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     console.log(searchBook);
-  }, [searchBook])
+  }, [])
 
   const onBarClick = () => {
     setSideBar(true);

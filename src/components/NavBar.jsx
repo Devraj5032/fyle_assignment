@@ -8,7 +8,7 @@ const NavBar = ({ onBarClick, sideBar , onSearch}) => {
   const navigate = useNavigate()
 
   const onSearchClick = (e) => {
-    e.preventDefault()
+    // e.preventDefault()
     onSearch(searchBar)
     navigate('/search/' + searchBar.split(' ').join('+'))
   }

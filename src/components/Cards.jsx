@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Card from "./Card";
 import loadingGIF from "../Images/loadingGIF.gif";
 import { useLocation, useParams } from "react-router-dom";
@@ -15,7 +15,7 @@ const Cards = () => {
 
   const location = useLocation();
 
-  const datafun = async () => {
+  const datafun = useCallback(async () => {
     if (location.pathname.includes("search")) {
       setLoading(true);
       const data = await fetch(
@@ -24,9 +24,10 @@ const Cards = () => {
           .join("+")}`
       );
       let data1 = await data.json();
-      console.log(data1.docs);
+      // console.log(data1.docs);
       const data2 = data1.docs;
       setBooks(data2);
+      // console.log(data2)
       setLoading(false);
     } else {
       setLoading(true);
@@ -38,7 +39,7 @@ const Cards = () => {
       setBooks(data2);
       setLoading(false);
     }
-  };
+  } , [books]);
 
   useEffect(() => {
     datafun();
